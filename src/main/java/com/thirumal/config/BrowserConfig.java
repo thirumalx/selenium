@@ -3,6 +3,8 @@ package com.thirumal.config;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,9 @@ import jakarta.annotation.PostConstruct;
 
 @Configuration
 public class BrowserConfig {
-
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
     @Value("${browser.name}")
     private String browser;
 
@@ -21,8 +25,8 @@ public class BrowserConfig {
     
     @PostConstruct
     public void init() {
-        System.out.println("Browser = " + browser);
-        System.out.println("Base URL = " + baseUrl);
+    	logger.info("Browser = {}", browser);
+        logger.info("Base URL = {}", baseUrl);
     }
 
     @Bean(destroyMethod = "quit")
